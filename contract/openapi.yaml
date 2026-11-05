@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Text File Uploader API
+  title: BPS SMART API
   version: 0.1.0
   description: >
     Contract between the frontend and backend teams. This file is the single

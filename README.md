@@ -1,4 +1,4 @@
-# Text File Uploader
+# BPS SMART - Structural Motion & Acceleration Response Tool
 
 Upload one or more `.txt` files from the browser. A Python (Flask) backend processes them. Deployed as a single Vercel project.
 
