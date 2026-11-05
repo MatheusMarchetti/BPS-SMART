@@ -1,0 +1,8 @@
+.alert { display: flex; gap: 12px; align-items: flex-start; padding: 16px 20px; border-radius: var(--radius); border: 1.5px solid; }
+.alert svg { flex: none; margin-top: 1px; }
+.alert__body { display: flex; flex-direction: column; gap: 2px; }
+.alert__body ul { margin: 0; padding-left: 20px; }
+.alert__body a { color: inherit; font-weight: 600; }
+.alert__title { font-weight: 700; }
+.alert--error { background: var(--bad-bg); color: var(--bad); border-color: var(--bad); }
+.alert--warning { background: var(--warn-bg); color: var(--warn); border-color: var(--warn); }
