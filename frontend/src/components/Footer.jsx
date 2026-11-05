@@ -21,7 +21,7 @@ export default function Footer() {
         </p>
         <p>
           SBM Offshore · Developed by:{" "}
-          <a href="mailto:matheus.marchetti@radixeng.com">Matheus Marchetti</a> (Back-End) ·{" "}
+          <a href="mailto:matheus.marchetti@ext.sbmoffshore.com">Matheus Marchetti</a> (Back-End) ·{" "}
           <a href="mailto:alessandrabrumcontato@gmail.com">Alessandra Brum</a> (Front-End &amp; UX)
         </p>
 
