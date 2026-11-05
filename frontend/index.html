@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Text File Uploader</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <h1>Text File Uploader</h1>
+
+    <form id="upload-form">
+      <label for="file-input">Text files</label>
+      <div class="picker">
+        <input id="file-input" name="files" type="file" multiple accept=".txt">
+      </div>
+      <p id="selection" class="hint">No files selected.</p>
+      <button id="upload-btn" type="submit" disabled>Upload</button>
+    </form>
+
+    <p id="status" role="status" aria-live="polite"></p>
+    <ul id="results"></ul>
+  </main>
+
+  <footer>
+    <span id="version">version: loading…</span>
+    <span id="mock-badge" hidden>· mock backend</span>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

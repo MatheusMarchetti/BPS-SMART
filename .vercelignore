@@ -1,0 +1,4 @@
+# Local-only files; not needed in the Vercel deployment.
+backend/test_api.py
+backend/conftest.py
+backend/requirements-dev.txt

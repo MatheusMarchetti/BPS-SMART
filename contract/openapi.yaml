@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: Text File Uploader API
+  version: 0.1.0
+  description: >
+    Contract between the frontend and backend teams. This file is the single
+    source of truth. Change it first (via PR to `dev`, approved by both teams),
+    then implement. Within /api/v1 only additive changes are allowed.
+servers:
+  - url: /
+paths:
+  /api/v1/health:
+    get:
+      summary: Liveness check
+      responses:
+        "200":
+          description: Service is up
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status: { type: string, example: ok }
+  /api/v1/version:
+    get:
+      summary: Application version (semver + commit hash)
+      responses:
+        "200":
+          description: Version info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Version"
+  /api/v1/limits:
+    get:
+      summary: Upload limits. The UI must read these instead of hardcoding them.
+      responses:
+        "200":
+          description: Current limits
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Limits"
+  /api/v1/files:
+    post:
+      summary: Upload one or more text files for processing
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [files]
+              properties:
+                files:
+                  type: array
+                  items: { type: string, format: binary }
+      responses:
+        "200":
+          description: One result per uploaded file. A bad file never fails the batch.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [results]
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FileResult"
+        "400":
+          description: No files sent
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+        "413":
+          description: Request body too large
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+components:
+  schemas:
+    Version:
+      type: object
+      required: [version, semver, commit]
+      properties:
+        version:
+          type: string
+          description: "semver+commit, e.g. 0.1.0+a1b2c3d"
+          example: 0.1.0+a1b2c3d
+        semver: { type: string, example: 0.1.0 }
+        commit:
+          type: string
+          description: Short commit hash, or "unknown" if it cannot be determined
+          example: a1b2c3d
+    Limits:
+      type: object
+      required: [allowed_extensions, max_request_bytes]
+      properties:
+        allowed_extensions:
+          type: array
+          items: { type: string }
+          example: [".txt"]
+        max_request_bytes: { type: integer, example: 4194304 }
+    FileResult:
+      type: object
+      required: [name, status]
+      properties:
+        name: { type: string }
+        status: { type: string, enum: [ok, error] }
+        stats:
+          type: object
+          properties:
+            lines: { type: integer }
+            words: { type: integer }
+            chars: { type: integer }
+        preview: { type: string }
+        error: { type: string }
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }

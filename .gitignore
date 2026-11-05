@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Vercel
+.vercel/
+
+# Environment
+.env
+.env.*
+
+# OS / Google Drive / editors
+desktop.ini
+.DS_Store
+Thumbs.db
+.tmp.driveupload/
+.vscode/
+.idea/
