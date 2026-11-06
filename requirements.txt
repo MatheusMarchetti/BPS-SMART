@@ -1,2 +1,0 @@
-# Runtime dependencies. Vercel installs this file for the Python function.
-Flask>=3.1,<4
