@@ -4,6 +4,7 @@ import Button from "../components/Button.jsx";
 import Alert from "../components/Alert.jsx";
 import DataTable, { CellInput } from "../components/DataTable.jsx";
 import ResultsPage from "./ResultsPage.jsx";
+import ShipPreview from "../components/ShipPreview.jsx";
 import { calculateEnvelope, forgetRaoFile, getHealth, getLimits, readRaoHeaders } from "../services/api.js";
 import "./EnvelopePage.css";
 
@@ -239,6 +240,7 @@ export default function EnvelopePage() {
                 rows={loadCases}
                 rowKey="name"
                 rowHeader="name"
+                stack
               />
             </>
           ) : (
@@ -271,6 +273,8 @@ export default function EnvelopePage() {
               </div>
             ))}
           </div>
+
+          <ShipPreview point={point} />
         </Card>
 
         <div className="env__submit">

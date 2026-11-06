@@ -82,6 +82,5 @@
 @media (min-width: 1024px) {
   .hdr__desktop { display: flex; align-items: center; gap: 12px; }
   .hdr__desktop .hdr__links { flex-direction: row; }
-  .hdr { position: static; }
   .hdr__menu-btn, .hdr__panel, .hdr__scrim { display: none; }
 }

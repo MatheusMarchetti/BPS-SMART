@@ -5,6 +5,45 @@
 .dt tbody th { color: var(--ink); font-weight: 700; }
 .dt .is-right { text-align: right; }
 
+.dt--stack,
+.dt--stack tbody,
+.dt--stack tr,
+.dt--stack th,
+.dt--stack td { display: block; }
+.dt--stack thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.dt--stack tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.dt--stack tbody th { padding: 0 0 8px; border-bottom: none; font-size: var(--text-lg); }
+.dt--stack td {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: none;
+  text-align: right;
+}
+.dt--stack td::before { content: attr(data-label); color: var(--ink2); font-size: var(--text-sm); font-weight: 700; text-align: left; }
+
+@media (min-width: 640px) {
+  .dt--stack { display: table; }
+  .dt--stack thead { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: table-header-group; }
+  .dt--stack tbody { display: table-row-group; }
+  .dt--stack tr { display: table-row; padding: 0; border-bottom: none; }
+  .dt--stack th,
+  .dt--stack td { display: table-cell; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .dt--stack tbody th { font-size: inherit; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .dt--stack td.is-right { text-align: right; }
+  .dt--stack td:not(.is-right) { text-align: left; }
+  .dt--stack td::before { content: none; }
+}
+
 .dt-input {
   width: 100%;
   min-width: 88px;
