@@ -1,3 +1,0 @@
-# Local development / CI only. Not installed on Vercel.
--r ../requirements.txt
-pytest>=8
