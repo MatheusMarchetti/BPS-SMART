@@ -4,7 +4,7 @@ import Button from "../components/Button.jsx";
 import Alert from "../components/Alert.jsx";
 import DataTable, { CellInput } from "../components/DataTable.jsx";
 import ResultsPage from "./ResultsPage.jsx";
-import { calculateEnvelope, getHealth, getLimits, readRaoHeaders } from "../services/api.js";
+import { calculateEnvelope, forgetRaoFile, getHealth, getLimits, readRaoHeaders } from "../services/api.js";
 import "./EnvelopePage.css";
 
 const AXES = [
@@ -57,10 +57,9 @@ export default function EnvelopePage() {
     if (!incoming.length) return;
     setReading(true);
     try {
-      const { results } = await readRaoHeaders(incoming);
-      const added = incoming.map((file) => {
-        const r = results.find((x) => x.name === file.name) ?? {};
-        return {
+      // Files are read one by one; each appears as soon as it has been read.
+      await readRaoHeaders(incoming, (file, r) => {
+        const entry = {
           id: nextId.current++,
           file,
           status: r.status ?? "error",
@@ -68,14 +67,11 @@ export default function EnvelopePage() {
           seaState: r.sea_state ?? "",
           error: r.error ?? "",
         };
-      });
-      setFiles((current) => [...current, ...added]);
-      setParams((current) => {
-        const next = { ...current };
-        added.filter((f) => f.status === "ok").forEach((f) => {
-          if (!next[f.loadCase]) next[f.loadCase] = { ...EMPTY_PARAMS };
-        });
-        return next;
+        setFiles((current) => [...current, entry]);
+        if (entry.status === "ok") {
+          setParams((current) =>
+            current[entry.loadCase] ? current : { ...current, [entry.loadCase]: { ...EMPTY_PARAMS } });
+        }
       });
     } catch (err) {
       setFailure(`Could not read the files: ${err.message}`);
@@ -84,7 +80,11 @@ export default function EnvelopePage() {
     }
   }
 
-  const removeFile = (id) => setFiles((current) => current.filter((f) => f.id !== id));
+  const removeFile = (id) => {
+    const removed = files.find((f) => f.id === id);
+    if (removed) forgetRaoFile(removed.file);
+    setFiles((current) => current.filter((f) => f.id !== id));
+  };
   const updatePoint = (field, value) => setPoint((p) => ({ ...p, [field]: value }));
   const updateParam = (loadCase, key, value) =>
     setParams((all) => ({ ...all, [loadCase]: { ...all[loadCase], [key]: value } }));
@@ -164,8 +164,8 @@ export default function EnvelopePage() {
       </div>
 
       {!online && (
-        <Alert type="error" title="Could not connect to BPS SMART">
-          <p>The server is not responding. Try again in a few minutes. If the problem continues, contact the BPS SMART team.</p>
+        <Alert type="error" title="Could not start BPS SMART">
+          <p>The calculation engine could not be loaded in this browser. Reload the page. If the problem continues, contact the BPS SMART team.</p>
         </Alert>
       )}
 
