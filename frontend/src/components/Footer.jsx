@@ -17,7 +17,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="wrap muted footer__inner">
         <p>
-          © {year} · BPS SMART · {version}{USE_MOCK ? " (mock backend)" : ""}.
+          © {year} · BPS SMART · {version}{USE_MOCK ? " (mock engine)" : ""}.
         </p>
         <p>
           SBM Offshore · Developed by:{" "}

@@ -23,6 +23,7 @@ export default function ResultsPage({ result }) {
     { key: "axis", label: "Axis", render: (r) => AXIS_NAMES[r.axis] ?? r.axis },
     { key: "value", label: `Max acceleration (${unitLabel})`, align: "right", render: (r) => fmt(r.value) },
     { key: "condition", label: "Load case" },
+    { key: "sea_state", label: "Sea condition", render: (r) => r.sea_state || "–" },
     { key: "heading_deg", label: "Heading (°)", align: "right" },
     { key: "period_s", label: "Period (s)", align: "right" },
   ];
