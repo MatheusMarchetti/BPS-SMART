@@ -60,6 +60,7 @@ export default function ResultsPage({ result }) {
         rows={result.results}
         rowKey="axis"
         rowHeader="axis"
+        stack
       />
 
       {basis && (

@@ -1,28 +1,29 @@
 import "./DataTable.css";
 
-export default function DataTable({ caption, columns, rows, rowKey = "id", rowHeader }) {
+export default function DataTable({ caption, columns, rows, rowKey = "id", rowHeader, stack = false }) {
+  const role = (name) => (stack ? name : undefined);
   return (
     <div className="dt-scroll">
-      <table className="dt">
+      <table className={stack ? "dt dt--stack" : "dt"} role={role("table")}>
         <caption className="sr-only">{caption}</caption>
-        <thead>
-          <tr>
+        <thead role={role("rowgroup")}>
+          <tr role={role("row")}>
             {columns.map((c) => (
-              <th key={c.key} scope="col" className={c.align === "right" ? "is-right" : undefined} style={c.width ? { width: c.width } : undefined}>
+              <th key={c.key} scope="col" role={role("columnheader")} className={c.align === "right" ? "is-right" : undefined} style={c.width ? { width: c.width } : undefined}>
                 {c.hidden ? <span className="sr-only">{c.label}</span> : c.label}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody role={role("rowgroup")}>
           {rows.map((row) => (
-            <tr key={row[rowKey]}>
+            <tr key={row[rowKey]} role={role("row")}>
               {columns.map((c) => {
                 const content = c.render ? c.render(row) : row[c.key];
                 const cls = c.align === "right" ? "is-right" : undefined;
                 return c.key === rowHeader
-                  ? <th key={c.key} scope="row" className={cls}>{content}</th>
-                  : <td key={c.key} className={cls}>{content}</td>;
+                  ? <th key={c.key} scope="row" role={role("rowheader")} className={cls}>{content}</th>
+                  : <td key={c.key} role={role("cell")} data-label={c.label} className={cls}>{content}</td>;
               })}
             </tr>
           ))}
