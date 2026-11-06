@@ -1,0 +1,21 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--touch);
+  padding: 0 20px;
+  border-radius: 999px;
+  font: 700 var(--text-md)/24px var(--font);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn--primary { min-height: 48px; padding: 0 24px; border: none; background: var(--pri); color: var(--on-pri); }
+.btn--outline { border: 1.5px solid var(--ctl); background: transparent; color: var(--ink); font-weight: 600; font-size: var(--text-sm); }
+.btn--primary { transition: background-color 400ms ease; }
+.btn--primary:hover:not(:disabled) { background: var(--pri-hover); }
+.btn:disabled { cursor: not-allowed; opacity: 0.6; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--primary { transition: none; }
+}
