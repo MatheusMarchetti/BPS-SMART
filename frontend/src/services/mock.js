@@ -109,8 +109,3 @@ export async function calculateEnvelope({ files, loadCases, x, y, z, pointName }
     ],
   };
 }
-
-/** Legacy name used by the (unrouted) UploadPage prototype. */
-export function uploadFiles(files) {
-  return readRaoHeaders(files);
-}
