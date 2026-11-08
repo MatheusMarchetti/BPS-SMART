@@ -26,6 +26,8 @@ const C = {
   roof: "#B23A2E",
   heli: "#3F7D4E",
   orange: "#F36F21",
+  flameOuter: "#D9480F",
+  flameCore: "#FFD23F",
   glass: "#5B7896",
   line: "#14202C",
 };
@@ -94,19 +96,23 @@ function FlareTower({ at, base = FLARE.base.y, top = FLARE.top.y }) {
     const zn = Math.min(z + 8, z1);
     rungs.push(
       <g key={z}>
-        <Line x1={at - half(z)} y1={-z} x2={at + half(zn)} y2={-zn} color={C.greyDark} width={0.25} />
-        <Line x1={at + half(z)} y1={-z} x2={at - half(zn)} y2={-zn} color={C.greyDark} width={0.25} />
-        <Line x1={at - half(z)} y1={-z} x2={at + half(z)} y2={-z} color={C.greyDark} width={0.25} />
+        <Line x1={at - half(z)} y1={-z} x2={at + half(zn)} y2={-zn} color={C.greyDark} width={0.35} />
+        <Line x1={at + half(z)} y1={-z} x2={at - half(zn)} y2={-zn} color={C.greyDark} width={0.35} />
+        <Line x1={at - half(z)} y1={-z} x2={at + half(z)} y2={-z} color={C.greyDark} width={0.35} />
       </g>,
     );
   }
   return (
     <g>
-      <Line x1={at - base} y1={-z0} x2={at - top} y2={-z1} color={C.grey} width={0.6} />
-      <Line x1={at + base} y1={-z0} x2={at + top} y2={-z1} color={C.grey} width={0.6} />
+      <Line x1={at - base} y1={-z0} x2={at - top} y2={-z1} color={C.greyDark} width={0.8} />
+      <Line x1={at + base} y1={-z0} x2={at + top} y2={-z1} color={C.greyDark} width={0.8} />
       {rungs}
       <Box x={at - top - 0.6} y={-(z1 + 2.5)} w={top * 2 + 1.2} h={2.5} fill={C.yellow} />
-      <path d={`M${at - 0.9},${-(z1 + 2.5)} q0.9,-5 0.9,-8 q1.3,3.5 0.9,8 z`} fill={C.orange} />
+      <g transform={`translate(${at} ${-(z1 + 2.5)})`}>
+        <path d="M-1.6,0 C-3,-4 -1.5,-8 0.5,-12 C1.5,-14 3.5,-16 6,-19 C5,-15 6.5,-12 5,-8 C4,-4 3,-1 1.6,0 Z" fill={C.flameOuter} />
+        <path d="M-1,0 C-2,-3 -0.8,-6 0.8,-9 C2,-11 3.2,-12.5 4.6,-14.5 C4,-11 4.6,-8.5 3.6,-5.5 C3,-3 2,-1 1,0 Z" fill={C.orange} />
+        <path d="M-0.5,0 C-1,-2 -0.3,-4 0.8,-6 C1.6,-7.2 2.4,-8.2 3,-9.5 C2.8,-7 3,-5 2.2,-3 C1.8,-1.6 1.2,-0.6 0.5,0 Z" fill={C.flameCore} />
+      </g>
     </g>
   );
 }
@@ -216,7 +222,7 @@ export function SideView({ uid }) {
       <Mast at={ACCOM.x} />
       {[ACCOM_AFT - 14, ACCOM_AFT - 8].map((x) => <Box key={x} x={x} y={-42} w={5} h={3} rx={1.5} fill={C.orange} />)}
       <HelideckSlab at={HELI.x} struts={[[HELI.x - HELI_R + 4, -3, 26], [HELI.x + HELI_R - 2, 2, 32]]} />
-      <FlareTower at={FLARE.x} base={2} top={0.8} />
+      <FlareTower at={FLARE.x} base={3} top={1.2} />
       <Waterline from={-25} to={345} />
       <Label x={338} y={-21.2} anchor="end">WL</Label>
       <Line x1={165} y1={4} x2={165} y2={-140} color="var(--ink)" width={0.4} dash="4 2" />
@@ -269,7 +275,7 @@ export function PlanView() {
       />
       <circle cx={HELI.x} cy={0} r={HELI_R * 0.65} fill="none" stroke="#F2C94C" strokeWidth={0.9} />
       <text x={HELI.x} y={3} fontSize={8} fontWeight={700} textAnchor="middle" fill={C.white}>H</text>
-      <Box x={FLARE.x - 2} y={-2} w={4} h={4} fill={C.grey} />
+      <Box x={FLARE.x - 3} y={-3} w={6} h={6} fill={C.grey} />
       <circle cx={FLARE.x} cy={0} r={1} fill={C.orange} />
       <Origin />
       <Line x1={0} y1={0} x2={0} y2={-24} color="var(--ship-axis)" width={0.9} />
@@ -287,7 +293,7 @@ export function SternView({ uid }) {
   return (
     <g>
       <PaintedHull id={`${uid}-stern`} points={TRANSVERSE_HULL} width={80} from={-40} />
-      <FlareTower at={0} base={2} top={0.8} />
+      <FlareTower at={0} base={3} top={1.2} />
       <Crane x={-FWD_CRANE.y} heel={FWD_CRANE.z} boomX={-FWD_CRANE.y - 9} boomZ={FWD_CRANE.z + 22} color={C.yellowDark} dark={C.line} />
       <Crane x={-AFT_CRANE.y} heel={AFT_CRANE.z} boomX={-AFT_CRANE.y + 4} boomZ={AFT_CRANE.z + 24} />
       <Box x={-26} y={-51} w={22} h={19} fill={C.yellowDark} />
