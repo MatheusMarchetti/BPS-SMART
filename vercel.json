@@ -1,7 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "frontend",
+  "installCommand": "npm ci --prefix frontend",
+  "buildCommand": "bash backend/scripts/build-wasm.sh && npm run build --prefix frontend",
+  "outputDirectory": "frontend/dist",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

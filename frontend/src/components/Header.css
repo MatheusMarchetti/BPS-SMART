@@ -1,0 +1,86 @@
+.hdr { position: sticky; top: 0; z-index: 20; background: var(--hdr); border-bottom: 1px solid var(--hdr-line); }
+.hdr__bar { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.hdr__brand { display: flex; align-items: center; gap: 12px; min-width: 0; color: var(--ink); text-decoration: none; }
+.hdr__logo { display: block; height: 32px; width: auto; flex: none; }
+.hdr__divider { width: 2px; height: 32px; background: var(--brand); flex: none; }
+.hdr__sub { display: none; }
+@media (min-width: 640px) {
+  .hdr__logo { height: 40px; }
+  .hdr__sub { display: inline; }
+}
+.hdr__name { display: flex; flex-direction: column; }
+.hdr__title { font-size: 22px; line-height: 26px; font-weight: 700; }
+
+.hdr__links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.hdr__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  padding: 0 14px;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.hdr__links a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 10px;
+}
+
+.hdr__desktop { display: none; }
+
+.hdr__menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--touch);
+  padding: 0 16px;
+  border: 1.5px solid var(--ctl);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 700 var(--text-md)/24px var(--font);
+  cursor: pointer;
+}
+
+.hdr__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  background: var(--scrim);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.hdr__scrim.is-open { opacity: 1; }
+
+.hdr__panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  width: min(320px, 85vw);
+  padding: 88px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--card);
+  border-left: 1px solid var(--line);
+  transform: translateX(100%);
+  transition: transform 200ms ease;
+}
+.hdr__panel.is-open { transform: translateX(0); }
+.hdr__panel[hidden] { display: flex; visibility: hidden; }
+.hdr__bar { position: relative; z-index: 21; }
+
+@media (min-width: 640px) {
+  .hdr__logo { display: inline-flex; }
+}
+
+@media (min-width: 1024px) {
+  .hdr__desktop { display: flex; align-items: center; gap: 12px; }
+  .hdr__desktop .hdr__links { flex-direction: row; }
+  .hdr__menu-btn, .hdr__panel, .hdr__scrim { display: none; }
+}
