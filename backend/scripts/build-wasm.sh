@@ -19,6 +19,7 @@ EMSDK_VERSION="${EMSDK_VERSION:-4.0.10}"
 if ! command -v emcmake >/dev/null 2>&1; then
   EMSDK_DIR="$ROOT/.emsdk"
   if [ ! -f "$EMSDK_DIR/emsdk.py" ]; then
+    rm -rf "$EMSDK_DIR"
     echo "Installing Emscripten SDK $EMSDK_VERSION into .emsdk/"
     git clone --depth 1 https://github.com/emscripten-core/emsdk.git "$EMSDK_DIR"
   fi
