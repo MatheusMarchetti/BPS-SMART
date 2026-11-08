@@ -2,6 +2,8 @@
 
 html, body { margin: 0; }
 
+html { scroll-padding-top: 88px; }
+
 body {
   background: var(--bg);
   color: var(--ink);

@@ -136,11 +136,3 @@ export async function calculateEnvelope({ files, loadCases, x, y, z, pointName }
   if (result.error) throw new Error(result.error);
   return result;
 }
-
-/**
- * Legacy name used by the (unrouted) UploadPage prototype: reads the files
- * like readRaoHeaders.
- */
-export function uploadFiles(files) {
-  return readRaoHeaders(files);
-}
