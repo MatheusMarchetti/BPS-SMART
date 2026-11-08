@@ -6,7 +6,7 @@ const VIEWS = [
   {
     id: "side",
     label: "Side",
-    viewBox: "-25 -132 385 150",
+    viewBox: "-40 -160 400 178",
     Drawing: SideView,
     place: (p) => [p.x, -p.z],
     describe: "Side view from starboard: stern and helideck on the left, bow and flare on the right.",
@@ -14,7 +14,7 @@ const VIEWS = [
   {
     id: "plan",
     label: "Plan",
-    viewBox: "-25 -44 395 92",
+    viewBox: "-40 -46 410 94",
     Drawing: PlanView,
     place: (p) => [p.x, -p.y],
     describe: "Plan view from above: stern on the left, port side at the top.",
@@ -22,7 +22,7 @@ const VIEWS = [
   {
     id: "stern",
     label: "Stern",
-    viewBox: "-50 -132 100 148",
+    viewBox: "-50 -160 100 176",
     Drawing: SternView,
     place: (p) => [-p.y, -p.z],
     describe: "Stern view looking forward: port on the left, starboard on the right.",
