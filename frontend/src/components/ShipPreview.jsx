@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import ShipSvg, { VIEWS } from "./ShipSvg.jsx";
 import "./ShipPreview.css";
 
@@ -8,6 +8,16 @@ export default function ShipPreview({ point }) {
   const uid = useId().replace(/:/g, "");
   const tabRefs = useRef([]);
   const [active, setActive] = useState(0);
+  const rootRef = useRef(null);
+  const [onScreen, setOnScreen] = useState(true);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return undefined;
+    const observer = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const coords = { x: toNumber(point.x), y: toNumber(point.y), z: toNumber(point.z) };
   const hasPoint = Object.values(coords).every(Number.isFinite);
@@ -33,7 +43,7 @@ export default function ShipPreview({ point }) {
   const view = VIEWS[active];
 
   return (
-    <div className="ship-preview">
+    <div ref={rootRef} className={`ship-preview${onScreen ? "" : " ship-preview--paused"}`}>
       <h3 className="ship-preview__title" id={`${uid}-title`}>Ship preview</h3>
 
       <div role="tablist" aria-labelledby={`${uid}-title`} className="ship-preview__tabs" onKeyDown={onKeyDown}>
