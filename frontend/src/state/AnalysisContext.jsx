@@ -20,6 +20,9 @@ export const STEPS = [
   { path: "/results", label: "Envelope results" },
 ];
 
+export const G = 9.80665;
+export const AXIS_NAMES = { ax: "Longitudinal ax", ay: "Transverse ay", az: "Vertical az" };
+
 const EMPTY_PARAMS = { lcg: "", tcg: "", kg: "" };
 
 export const toNumberText = (v) => String(v ?? "").trim().replace(",", ".");
