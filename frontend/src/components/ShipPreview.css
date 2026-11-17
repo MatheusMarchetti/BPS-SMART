@@ -68,3 +68,7 @@
 @media (prefers-reduced-motion: reduce) {
   .flare-flame path { animation: none !important; }
 }
+
+@media print {
+  .flare-flame path { animation: none !important; }
+}
