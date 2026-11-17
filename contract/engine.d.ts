@@ -3,7 +3,7 @@
  * and backend teams. Change this file first (via PR to `dev`, approved by both
  * teams), then implement.
  *
- * Contract version 2.0.0. It replaces the HTTP API (contract/openapi.yaml,
+ * Contract version 2.1.0. It replaces the HTTP API (contract/openapi.yaml,
  * /api/v1): nothing is sent to a server any more. The backend is C++ compiled
  * to WebAssembly with Emscripten, and every file is processed inside the
  * user's browser.
@@ -82,6 +82,12 @@ export interface Limits {
   max_file_bytes: number;
 }
 
+/** Returned by getUnits(). The FPSO units the user can pick. Filled by the backend. */
+export interface Units {
+  /** Empty until the backend has the list. The UI then shows that no units are available yet. */
+  units: { id: string; name: string }[];
+}
+
 /** Returned by readRaoFile() (and by checkFile() when a file is rejected). */
 export type RaoFileResult =
   | {
@@ -126,6 +132,8 @@ export interface EnvelopeRequest {
   /** The point, from the ship origin, in metres (x forward, y to port, z up). */
   point: { x: number | string; y: number | string; z: number | string };
   point_name?: string;
+  /** From getUnits(). Optional while the backend has no list. */
+  unit_id?: string;
 }
 
 /** One axis of the envelope: the largest value and the case that governs it. */
@@ -151,6 +159,8 @@ export interface AxisResult {
 /** Returned by calculateEnvelope() on success. */
 export interface EnvelopeResult {
   point_name: string;
+  /** Name of the selected unit, for the results and the report. "" if none was selected. */
+  unit_name?: string;
   point: { x: number; y: number; z: number };
   files_used: string[];
   basis: {
@@ -182,6 +192,8 @@ export interface BpsEngine {
   getVersion(): string;
   /** JSON Limits */
   getLimits(): string;
+  /** JSON Units */
+  getUnits(): string;
   /**
    * Cheap check from name and size only, so huge or wrong-type files are
    * rejected before the browser reads them into memory.
