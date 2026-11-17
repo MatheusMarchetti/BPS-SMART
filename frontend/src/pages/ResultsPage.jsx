@@ -1,24 +1,35 @@
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import { Navigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import Card from "../components/Card.jsx";
 import DataTable from "../components/DataTable.jsx";
+import EnvelopeReport from "../components/EnvelopeReport.jsx";
 import Note from "../components/Note.jsx";
 import PageHead from "../components/PageHead.jsx";
 import SegmentedControl from "../components/SegmentedControl.jsx";
 import ShipPreview from "../components/ShipPreview.jsx";
 import SummaryList from "../components/SummaryList.jsx";
-import { useAnalysis } from "../state/AnalysisContext.jsx";
+import { AXIS_NAMES, G, toNumberText, useAnalysis } from "../state/AnalysisContext.jsx";
 
-const G = 9.80665;
-const AXIS_NAMES = { ax: "Longitudinal ax", ay: "Transverse ay", az: "Vertical az" };
 const UNITS = [{ value: "ms2", label: "m/s²" }, { value: "g", label: "g" }];
 
 const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
+function DownloadIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 3v12" />
+      <path d="m7 10 5 5 5-5" />
+      <path d="M5 21h14" />
+    </svg>
+  );
+}
+
 export default function ResultsPage() {
   const a = useAnalysis();
   const [unit, setUnit] = useState("ms2");
+  const [generatedAt, setGeneratedAt] = useState(() => new Date());
 
   if (!a.result) return <Navigate to="/" replace />;
 
@@ -43,13 +54,34 @@ export default function ResultsPage() {
   ];
 
   const point = { name, x: String(result.point.x), y: String(result.point.y), z: String(result.point.z) };
+  const lead = `Largest acceleration on each axis across ${plural(basis.conditions.length, "load case")}, ${plural(basis.headings_count, "heading")} and all frequencies. Each value shows the case that governs it.`;
+  const reportLoadCases = a.loadCases.map((lc) => ({
+    name: lc.name,
+    lcg: toNumberText(a.params[lc.name]?.lcg),
+    tcg: toNumberText(a.params[lc.name]?.tcg),
+    kg: toNumberText(a.params[lc.name]?.kg),
+    files: lc.files.length,
+  }));
+
+  function exportPdf() {
+    flushSync(() => setGeneratedAt(new Date()));
+    const title = document.title;
+    document.title = `BPS SMART envelope - ${name}`;
+    window.addEventListener("afterprint", () => { document.title = title; }, { once: true });
+    window.print();
+  }
 
   return (
     <>
       <PageHead
         title={`Envelope results: ${name}`}
-        lead={`Largest acceleration on each axis across ${plural(basis.conditions.length, "load case")}, ${plural(basis.headings_count, "heading")} and all frequencies. Each value shows the case that governs it.`}
-        actions={<Button variant="outline" to="/point">Change point</Button>}
+        lead={lead}
+        actions={
+          <>
+            <Button variant="outline" to="/point">Change point</Button>
+            <Button onClick={exportPdf}><DownloadIcon />Export PDF</Button>
+          </>
+        }
       />
 
       <Card
@@ -83,6 +115,14 @@ export default function ResultsPage() {
           </Note>
         </aside>
       </div>
+
+      <EnvelopeReport
+        result={result}
+        unitName={a.unit?.name}
+        loadCases={reportLoadCases}
+        lead={lead}
+        generatedAt={generatedAt}
+      />
     </>
   );
 }
