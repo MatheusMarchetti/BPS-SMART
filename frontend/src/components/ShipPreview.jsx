@@ -37,7 +37,7 @@ const VIEWS = [
   },
 ];
 
-const toNumber = (v) => (String(v).trim() === "" ? NaN : Number(v));
+const toNumber = (v) => (String(v).trim() === "" ? NaN : Number(String(v).trim().replace(",", ".")));
 
 export default function ShipPreview({ point }) {
   const uid = useId().replace(/:/g, "");

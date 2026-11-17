@@ -1,0 +1,18 @@
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label { font-weight: 700; }
+.field__optional { color: var(--ink2); font-weight: 400; }
+.field__control {
+  width: 100%;
+  min-height: var(--touch);
+  padding: 8px 12px;
+  border: 1.5px solid var(--ctl);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  color: var(--ink);
+  font: 400 var(--text-md)/24px var(--font);
+}
+.field__control.is-num { text-align: right; font-variant-numeric: tabular-nums; }
+.field__control.is-invalid { border: 2px solid var(--bad); }
+.field__control:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.field__error { color: var(--bad); font-size: var(--text-sm); font-weight: 700; line-height: 22px; }
+select.field__control { cursor: pointer; }
