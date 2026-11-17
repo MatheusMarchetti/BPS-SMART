@@ -1,7 +1,5 @@
 # BPS SMART - Structural Motion & Acceleration Response Tool
 
-**Brownfield Project Services, SBM Offshore**
-
 Add RAO tables, enter the centre of gravity of each load case and a point, and get the acceleration envelope at that point. A C++ engine compiled to WebAssembly (Emscripten) does the processing in your browser, so files are never uploaded. Hosted as a static site.
 
 - Team workflow, branches, and versioning: [CLAUDE.md](CLAUDE.md)
