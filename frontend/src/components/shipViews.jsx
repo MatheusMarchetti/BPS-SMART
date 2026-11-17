@@ -15,21 +15,21 @@ const ACCOM_W = 24;
 const ACCOM_AFT = ACCOM.x - ACCOM_W / 2;
 
 const C = {
-  hull: "#2F5D8C",
-  boot: "#1F2933",
-  deck: "#9A3F2E",
-  yellow: "#E8B500",
-  yellowDark: "#B98F00",
-  white: "#F4F6F8",
-  grey: "#C3CBD3",
-  greyDark: "#8A96A3",
-  roof: "#B23A2E",
-  heli: "#3F7D4E",
-  orange: "#F36F21",
-  flameOuter: "#D9480F",
-  flameCore: "#FFD23F",
-  glass: "#5B7896",
-  line: "#14202C",
+  hull: "var(--ship-hull, #2F5D8C)",
+  boot: "var(--ship-boot, #1F2933)",
+  deck: "var(--ship-deck, #9A3F2E)",
+  yellow: "var(--ship-module, #E8B500)",
+  yellowDark: "var(--ship-module-dark, #B98F00)",
+  white: "var(--ship-white, #F4F6F8)",
+  grey: "var(--ship-grey, #C3CBD3)",
+  greyDark: "var(--ship-grey-dark, #8A96A3)",
+  roof: "var(--ship-roof, #B23A2E)",
+  heli: "var(--ship-heli, #3F7D4E)",
+  orange: "var(--ship-orange, #F36F21)",
+  flameOuter: "var(--ship-flame-outer, #D9480F)",
+  flameCore: "var(--ship-flame-core, #FFD23F)",
+  glass: "var(--ship-glass, #5B7896)",
+  line: "var(--ship-line, #14202C)",
 };
 
 const MODULES = [
@@ -273,7 +273,7 @@ export function PlanView() {
         })}
         fill={C.heli}
       />
-      <circle cx={HELI.x} cy={0} r={HELI_R * 0.65} fill="none" stroke="#F2C94C" strokeWidth={0.9} />
+      <circle cx={HELI.x} cy={0} r={HELI_R * 0.65} fill="none" stroke="var(--ship-heli-ring, #F2C94C)" strokeWidth={0.9} />
       <text x={HELI.x} y={3} fontSize={8} fontWeight={700} textAnchor="middle" fill={C.white}>H</text>
       <Box x={FLARE.x - 3} y={-3} w={6} h={6} fill={C.grey} />
       <circle cx={FLARE.x} cy={0} r={1} fill={C.orange} />
