@@ -26,14 +26,12 @@ function Layout() {
   const a = useAnalysis();
   const { pathname } = useLocation();
   const mainRef = useRef(null);
-  const first = useRef(true);
+  const lastPath = useRef(pathname);
   const current = STEPS.findIndex((s) => s.path === pathname);
 
   useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
+    if (lastPath.current === pathname) return;
+    lastPath.current = pathname;
     window.scrollTo(0, 0);
     mainRef.current?.focus();
   }, [pathname]);
