@@ -15,21 +15,21 @@ const ACCOM_W = 24;
 const ACCOM_AFT = ACCOM.x - ACCOM_W / 2;
 
 const C = {
-  hull: "#2F5D8C",
-  boot: "#1F2933",
-  deck: "#9A3F2E",
-  yellow: "#E8B500",
-  yellowDark: "#B98F00",
-  white: "#F4F6F8",
-  grey: "#C3CBD3",
-  greyDark: "#8A96A3",
-  roof: "#B23A2E",
-  heli: "#3F7D4E",
-  orange: "#F36F21",
-  flameOuter: "#D9480F",
-  flameCore: "#FFD23F",
-  glass: "#5B7896",
-  line: "#14202C",
+  hull: "var(--ship-hull, #2F5D8C)",
+  boot: "var(--ship-boot, #1F2933)",
+  deck: "var(--ship-deck, #9A3F2E)",
+  yellow: "var(--ship-module, #E8B500)",
+  yellowDark: "var(--ship-module-dark, #B98F00)",
+  white: "var(--ship-white, #F4F6F8)",
+  grey: "var(--ship-grey, #C3CBD3)",
+  greyDark: "var(--ship-grey-dark, #8A96A3)",
+  roof: "var(--ship-roof, #B23A2E)",
+  heli: "var(--ship-heli, #3F7D4E)",
+  orange: "var(--ship-orange, #F36F21)",
+  flameOuter: "var(--ship-flame-outer, #D9480F)",
+  flameCore: "var(--ship-flame-core, #FFD23F)",
+  glass: "var(--ship-glass, #5B7896)",
+  line: "var(--ship-line, #14202C)",
 };
 
 const MODULES = [
@@ -108,10 +108,10 @@ function FlareTower({ at, base = FLARE.base.y, top = FLARE.top.y }) {
       <Line x1={at + base} y1={-z0} x2={at + top} y2={-z1} color={C.greyDark} width={0.8} />
       {rungs}
       <Box x={at - top - 0.6} y={-(z1 + 2.5)} w={top * 2 + 1.2} h={2.5} fill={C.yellow} />
-      <g transform={`translate(${at} ${-(z1 + 2.5)})`}>
-        <path d="M-1.6,0 C-3,-4 -1.5,-8 0.5,-12 C1.5,-14 3.5,-16 6,-19 C5,-15 6.5,-12 5,-8 C4,-4 3,-1 1.6,0 Z" fill={C.flameOuter} />
-        <path d="M-1,0 C-2,-3 -0.8,-6 0.8,-9 C2,-11 3.2,-12.5 4.6,-14.5 C4,-11 4.6,-8.5 3.6,-5.5 C3,-3 2,-1 1,0 Z" fill={C.orange} />
-        <path d="M-0.5,0 C-1,-2 -0.3,-4 0.8,-6 C1.6,-7.2 2.4,-8.2 3,-9.5 C2.8,-7 3,-5 2.2,-3 C1.8,-1.6 1.2,-0.6 0.5,0 Z" fill={C.flameCore} />
+      <g className="flare-flame" transform={`translate(${at} ${-(z1 + 2.5)})`}>
+        <path className="flare-flame__outer" d="M-1.6,0 C-3,-4 -1.5,-8 0.5,-12 C1.5,-14 3.5,-16 6,-19 C5,-15 6.5,-12 5,-8 C4,-4 3,-1 1.6,0 Z" fill={C.flameOuter} />
+        <path className="flare-flame__mid" d="M-1,0 C-2,-3 -0.8,-6 0.8,-9 C2,-11 3.2,-12.5 4.6,-14.5 C4,-11 4.6,-8.5 3.6,-5.5 C3,-3 2,-1 1,0 Z" fill={C.orange} />
+        <path className="flare-flame__core" d="M-0.5,0 C-1,-2 -0.3,-4 0.8,-6 C1.6,-7.2 2.4,-8.2 3,-9.5 C2.8,-7 3,-5 2.2,-3 C1.8,-1.6 1.2,-0.6 0.5,0 Z" fill={C.flameCore} />
       </g>
     </g>
   );
@@ -273,7 +273,7 @@ export function PlanView() {
         })}
         fill={C.heli}
       />
-      <circle cx={HELI.x} cy={0} r={HELI_R * 0.65} fill="none" stroke="#F2C94C" strokeWidth={0.9} />
+      <circle cx={HELI.x} cy={0} r={HELI_R * 0.65} fill="none" stroke="var(--ship-heli-ring, #F2C94C)" strokeWidth={0.9} />
       <text x={HELI.x} y={3} fontSize={8} fontWeight={700} textAnchor="middle" fill={C.white}>H</text>
       <Box x={FLARE.x - 3} y={-3} w={6} h={6} fill={C.grey} />
       <circle cx={FLARE.x} cy={0} r={1} fill={C.orange} />

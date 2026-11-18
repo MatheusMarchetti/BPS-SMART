@@ -1,4 +1,10 @@
-# Python
+# C++ / WebAssembly build outputs
+backend/build/
+frontend/public/wasm/
+.emsdk/
+.buildtools/
+
+# Python (build tooling only)
 __pycache__/
 *.py[cod]
 .venv/
