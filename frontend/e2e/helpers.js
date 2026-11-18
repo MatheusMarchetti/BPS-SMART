@@ -22,7 +22,12 @@ export const LOAD_CASES = {
 
 export const POINT = { name: "Crane pedestal", x: "124", y: "23", z: "54" };
 
+export async function waitForApp(page) {
+  await expect(page.getByText("Accepted format: .txt")).toBeVisible({ timeout: 15_000 });
+}
+
 export async function uploadFiles(page, files = RAO_FILES) {
+  await waitForApp(page);
   const chooser = page.waitForEvent("filechooser");
   await page.getByRole("button", { name: "Select files" }).click();
   await (await chooser).setFiles(files);

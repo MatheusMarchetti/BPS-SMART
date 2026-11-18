@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { RAO_FILES, fillLoadCases, fillPoint, runFlow, uploadFiles } from "./helpers.js";
+import { RAO_FILES, fillLoadCases, fillPoint, runFlow, uploadFiles, waitForApp } from "./helpers.js";
 
 const TAGS = ["wcag2a", "wcag2aa", "wcag2aaa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"];
 
@@ -52,6 +52,7 @@ test.describe("keyboard", () => {
 
   test("the whole flow works with the keyboard only", async ({ page }) => {
     await page.goto("/");
+    await waitForApp(page);
     const select = page.getByRole("button", { name: "Select files" });
     await select.focus();
     const chooser = page.waitForEvent("filechooser");
