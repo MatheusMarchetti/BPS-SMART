@@ -24,6 +24,7 @@ async function exportPdf(page, flow = {}) {
   expect(await page.evaluate(() => window.__printed)).toBe(1);
   await page.emulateMedia({ media: "print" });
   const pdf = await page.pdf({ preferCSSPageSize: true, printBackground: true });
+  await test.info().attach("envelope-report.pdf", { body: pdf, contentType: "application/pdf" });
   return readPdf(pdf);
 }
 

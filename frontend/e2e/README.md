@@ -51,7 +51,7 @@ test("accepts comma decimals", async ({ page }) => {
 
 ### Export PDF
 
-The app calls `window.print()`. The test replaces it to count the call, then asks Chromium for the same PDF the print dialog would make (`page.pdf()` with print CSS). `pdf.js` reads the PDF with `pdfjs-dist` and returns every piece of text with its position. From that the test checks that text stays inside the page margins, that no text sits on top of other text, which page each section is on, and that header and footer repeat on every page.
+The app calls `window.print()`. The test replaces it to count the call, then asks Chromium for the same PDF the print dialog would make (`page.pdf()` with print CSS). `pdf.js` reads the PDF with `pdfjs-dist` and returns every piece of text with its position. Each PDF test attaches the PDF it made (`envelope-report.pdf`): open it from the Attachments tab in `npm run test:e2e:ui` or in the report. From that the test checks that text stays inside the page margins, that no text sits on top of other text, which page each section is on, and that header and footer repeat on every page.
 
 ### Accessibility
 
