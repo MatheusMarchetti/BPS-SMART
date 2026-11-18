@@ -2,3 +2,6 @@ node_modules/
 dist/
 interno/
 public/wasm/
+test-results/
+playwright-report/
+blob-report/

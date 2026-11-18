@@ -2,7 +2,7 @@ import StepBar from "./StepBar.jsx";
 
 export default function AnalysisBar({ unitName, steps, current, reached }) {
   return (
-    <div className="analysis-bar">
+    <section className="analysis-bar" aria-label="Analysis progress">
       <div className="wrap analysis-bar__inner">
         <div className="analysis-bar__row">
           <div className="analysis-bar__name">
@@ -13,6 +13,6 @@ export default function AnalysisBar({ unitName, steps, current, reached }) {
         </div>
         <StepBar steps={steps} current={current} reached={reached} />
       </div>
-    </div>
+    </section>
   );
 }
