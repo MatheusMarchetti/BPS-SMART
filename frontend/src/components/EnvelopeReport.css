@@ -1,7 +1,12 @@
 .rpt { display: none; }
 
 @media print {
-  @page { size: A4; margin: 0; }
+  @page {
+    size: A4;
+    margin: 12mm 16mm 18mm;
+    @bottom-left { content: ""; font: 400 8pt "Nunito Sans", system-ui, sans-serif; color: #333; vertical-align: top; margin-top: 4mm; padding-top: 2mm; border-top: 0.5pt solid #9E9E9E; }
+    @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 400 8pt "Nunito Sans", system-ui, sans-serif; color: #333; vertical-align: top; margin-top: 4mm; padding-top: 2mm; border-top: 0.5pt solid #9E9E9E; }
+  }
 
   html, body { background: #fff !important; }
   body > #root { display: none !important; }
@@ -42,17 +47,17 @@
   }
 }
 
-.rpt-page {
-  position: relative;
-  width: 210mm;
-  min-height: 297mm;
-  padding: 14mm 16mm 22mm;
-  display: flex;
-  flex-direction: column;
-  gap: 6mm;
-  break-after: page;
-}
-.rpt-page:last-child { break-after: auto; }
+.rpt-frame { width: 100%; border-collapse: collapse; }
+.rpt-frame > thead > tr > td { padding: 0 0 6mm; }
+.rpt-frame > tbody > tr > td { padding: 0; }
+.rpt-body > * + * { margin-top: 6mm; }
+
+.rpt-block { break-inside: avoid; }
+.rpt-block--new-page { break-before: page; }
+.rpt-block--flow { break-inside: auto; }
+.rpt-block--flow > .rpt-table { margin-top: 5mm; }
+.rpt-block--flow .rpt-table tr { break-inside: avoid; }
+.rpt-block--flow .rpt-table caption, .rpt-h2, .rpt-h3 { break-after: avoid; }
 
 .rpt-head { display: flex; align-items: center; gap: 5mm; padding-bottom: 3.5mm; border-bottom: 1.2pt solid #000; }
 .rpt-head__logo { width: 18mm; height: auto; }
@@ -76,7 +81,7 @@
 .rpt-coords dt { font-size: 8pt; color: var(--ink2); }
 .rpt-coords dd { margin: 0; font-size: 12pt; font-weight: 800; font-variant-numeric: tabular-nums; }
 
-.rpt-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; break-inside: avoid; }
+.rpt-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .rpt-table caption { text-align: left; font-size: 8.5pt; color: var(--ink2); padding-bottom: 1.5mm; }
 .rpt-table th, .rpt-table td { padding: 1.6mm 2mm; border-bottom: 0.5pt solid var(--line); text-align: left; vertical-align: top; }
 .rpt-table thead th { font-size: 8.5pt; font-weight: 700; border-bottom: 1pt solid #000; background: var(--soft); }
@@ -89,11 +94,12 @@
 .rpt-file { font-size: 8pt; overflow-wrap: anywhere; }
 
 .rpt-fig { margin: 0; break-inside: avoid; }
+.rpt-fig + .rpt-fig { margin-top: 5mm; }
+.rpt-fig--stern { width: 60mm; }
 .rpt-fig svg { display: block; width: 100%; height: auto; border: 0.75pt solid var(--line); background: #fff; font-family: var(--font); }
 .rpt-fig figcaption { margin-top: 1.5mm; font-size: 8.5pt; color: var(--ink2); }
 .rpt-fig figcaption b { color: #000; }
 
-.rpt-split { display: grid; grid-template-columns: 50mm 1fr; gap: 5mm; margin-top: 5mm; align-items: start; }
 .rpt-basis { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 1.4mm 4mm; }
 .rpt-basis dt { color: var(--ink2); }
 .rpt-basis dd { margin: 0; font-weight: 700; }
@@ -103,16 +109,3 @@
 
 .rpt-note { border-left: 2pt solid #000; background: var(--soft); padding: 2.5mm 4mm; font-size: 9pt; break-inside: avoid; }
 .rpt-note p { margin: 0; }
-
-.rpt-foot {
-  position: absolute;
-  left: 16mm;
-  right: 16mm;
-  bottom: 9mm;
-  display: flex;
-  justify-content: space-between;
-  font-size: 8pt;
-  color: var(--ink2);
-  border-top: 0.5pt solid var(--line);
-  padding-top: 2mm;
-}
