@@ -15,4 +15,21 @@
 .field__control.is-invalid { border: 2px solid var(--bad); }
 .field__control:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .field__error { color: var(--bad); font-size: var(--text-sm); font-weight: 700; line-height: 22px; }
-select.field__control { cursor: pointer; }
+select.field__control { cursor: pointer; appearance: none; -webkit-appearance: none; padding-right: 48px; }
+select.field__control:disabled { cursor: not-allowed; }
+.field__select { position: relative; display: block; }
+.field__select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+@media (forced-colors: active) {
+  .field__select::after { border-color: CanvasText; }
+}
