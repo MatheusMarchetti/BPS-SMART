@@ -24,13 +24,21 @@ export async function getVersion() {
   return { version: "0.0.0+mock", semver: "0.0.0", commit: "mock" };
 }
 
+export async function getUnits() {
+  await delay(50);
+  return [
+    { id: "unit-a", name: "Sample unit A" },
+    { id: "unit-b", name: "Sample unit B" },
+  ];
+}
+
 // "2   (1=LCMIN, 2=LCINT1)" -> "LCINT1", like the engine.
 function resolveLegend(raw) {
   const [, value, legend] = raw.trim().match(/^([^(]*)(?:\(([^)]*)\))?/) ?? [];
   const v = (value ?? "").trim();
   for (const entry of (legend ?? "").split(",")) {
-    const [k, label] = entry.split("=");
-    if (label !== undefined && k.trim() === v) return label.trim();
+    const at = entry.indexOf("=");
+    if (at > 0 && entry.slice(0, at).trim() === v) return entry.slice(at + 1).trim();
   }
   return v;
 }

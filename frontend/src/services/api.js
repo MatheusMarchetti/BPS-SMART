@@ -46,6 +46,13 @@ export async function getVersion() {
   return JSON.parse((await loadEngine()).getVersion());
 }
 
+export async function getUnits() {
+  if (USE_MOCK) return mock.getUnits();
+  const engine = await loadEngine();
+  if (typeof engine.getUnits !== "function") return [];
+  return JSON.parse(engine.getUnits()).units ?? [];
+}
+
 /** Reads one file into the engine. Never throws: errors become status "error". */
 async function readOne(engine, file) {
   const rejected = engine.checkFile(file.name, file.size);

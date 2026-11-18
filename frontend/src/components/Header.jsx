@@ -61,7 +61,7 @@ export default function Header({ theme, onToggleTheme }) {
     <ul className="hdr__links">
       {LINKS.map((l) => (
         <li key={l.to}>
-          <NavLink end to={l.to} onClick={() => setOpen(false)}>{l.label}</NavLink>
+          <NavLink to={l.to} onClick={() => setOpen(false)}>{l.label}</NavLink>
         </li>
       ))}
     </ul>
