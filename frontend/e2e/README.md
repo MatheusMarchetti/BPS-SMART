@@ -27,7 +27,7 @@ The tests start the dev server on http://localhost:8080 by themselves. If `npm r
 | File | Checks |
 |---|---|
 | `flow.spec.js` | The 4 steps: upload, load cases, point, results. Error messages and unit switch. |
-| `numbers.spec.js` | Comma and dot decimals. |
+| `numbers.spec.js` | Comma and dot decimals, negative values. |
 | `pdf.spec.js` | Export PDF: page count, header and footer on every page, nothing cut, no text on top of text, each section on its page, 100-file case. |
 | `a11y.spec.js` | axe (WCAG 2.2 A, AA and AAA contrast) on every step in light and dark mode, keyboard-only flow, focus ring, mobile menu. |
 | `theme.spec.js` | Light and dark mode, saved choice, print always on white. |

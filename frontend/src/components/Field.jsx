@@ -13,7 +13,11 @@ export default function Field({ id, label, optional = false, hint, error, numeri
     <Control
       id={fieldId}
       className={cls}
-      inputMode={numeric ? "decimal" : undefined}
+      inputMode={numeric ? "text" : undefined}
+      autoComplete={numeric ? "off" : undefined}
+      autoCorrect={numeric ? "off" : undefined}
+      autoCapitalize={numeric ? "off" : undefined}
+      spellCheck={numeric ? false : undefined}
       aria-invalid={error ? true : undefined}
       aria-describedby={describedBy}
       {...rest}
