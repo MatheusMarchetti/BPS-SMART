@@ -43,3 +43,32 @@
 .ship-preview__svg--section { max-height: 520px; }
 
 .ship-preview__note { margin: 0; }
+
+.flare-flame path { transform-box: fill-box; transform-origin: 50% 100%; }
+.flare-flame__outer { animation: flare-outer 1.8s ease-in-out infinite; }
+.flare-flame__mid { animation: flare-mid 1.35s ease-in-out -0.4s infinite; }
+.flare-flame__core { animation: flare-core 1.05s ease-in-out -0.2s infinite; }
+.ship-preview--paused .flare-flame path { animation-play-state: paused; }
+
+@keyframes flare-outer {
+  0%, 100% { transform: scale(1, 1) skewX(0); }
+  35% { transform: scale(0.96, 1.06) skewX(-3deg); }
+  70% { transform: scale(1.03, 0.95) skewX(2deg); }
+}
+@keyframes flare-mid {
+  0%, 100% { transform: scale(1, 1) skewX(0); }
+  40% { transform: scale(1.03, 0.94) skewX(3deg); }
+  75% { transform: scale(0.97, 1.07) skewX(-2deg); }
+}
+@keyframes flare-core {
+  0%, 100% { transform: scale(1, 1); opacity: 1; }
+  50% { transform: scale(0.94, 1.1); opacity: 0.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flare-flame path { animation: none !important; }
+}
+
+@media print {
+  .flare-flame path { animation: none !important; }
+}

@@ -101,3 +101,21 @@ a { color: var(--ink); }
 .seg__opt + .seg__opt { border-left: 1.5px solid var(--ctl); }
 .seg__opt.is-on { background: var(--pri); color: var(--on-pri); }
 .seg__opt:focus-within { outline: 3px solid var(--focus); outline-offset: -3px; }
+
+.page-head { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 24px; }
+.page-head__text { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.card > p { margin: 0; }
+.field--narrow { max-width: 480px; }
+.xyz { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.facts { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px 24px; }
+.facts dd { margin: 0; font-weight: 700; }
+.cell-wrap { overflow-wrap: anywhere; }
+.cell-error { color: var(--bad); font-weight: 600; }
+.summary .summary__bad { color: var(--bad); }
+.split-side .btn { width: 100%; }
+.error-summary:focus { outline: none; }
+
+@media (min-width: 640px) {
+  .xyz { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

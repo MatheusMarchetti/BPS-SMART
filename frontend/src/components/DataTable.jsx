@@ -41,7 +41,11 @@ export function CellInput({ label, value, onChange, numeric = false, invalid = f
       className={cls}
       aria-label={label}
       aria-invalid={invalid || undefined}
-      inputMode={numeric ? "decimal" : undefined}
+      inputMode={numeric ? "text" : undefined}
+      autoComplete={numeric ? "off" : undefined}
+      autoCorrect={numeric ? "off" : undefined}
+      autoCapitalize={numeric ? "off" : undefined}
+      spellCheck={numeric ? false : undefined}
       value={value}
       onChange={(e) => onChange(e.target.value)}
     />
